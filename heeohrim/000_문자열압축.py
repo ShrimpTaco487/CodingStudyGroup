@@ -1,46 +1,58 @@
 # -*- coding: utf-8 -*-
 # https://programmers.co.kr/learn/courses/30/lessons/60057
 
+def writeCode(count,unitStr,code):
+    if count > 1:
+        code.extend(str(count))
+        code.extend(unitStr)
+    else:
+        code.extend(unitStr)
+    count = 1
+    return code, count
+
+
 def solution(s):
     answer = len(s)
+    shortestCode =[]
+    shortestCode.extend(s)
     for unitNum in range(1,len(s)+1):
-        shortestCode = []
+        code = []
         count = 1
-        currentUnitStr = s[0:unitNum]
+        unitString = s[0:unitNum]
         remainder = s[unitNum:]
-        print('unitString:',currentUnitStr)
-        while True:
-            if len(remainder) < unitNum:
-                break
-            print('remainderlength,unitlength:',len(remainder), unitNum)
-            print('unitString,remainderunit,count:',currentUnitStr,remainder[0:unitNum],count)
-            if remainder[0:unitNum] == currentUnitStr:
-                count += 1
-                remainder = remainder[unitNum:]
-                print('remainder:',remainder)
+        # print('unitString:',unitString)
+        for round in range(int(len(s)/unitNum)):
+            unitRemainder = remainder[0:unitNum]
+            if unitString == unitRemainder:
+                count+=1
+                if len(remainder) <= unitNum:
+                    code, count = writeCode(count, unitString, code)
+                    # print('code:',code)
+                    break
+                else:
+                    unitString = remainder[0:unitNum]
+                    remainder = remainder[unitNum:]
             else:
-                if count>1:
-                    shortestCode.extend(str(count))
-                    print('shortcode:',shortestCode)
-                shortestCode.extend(currentUnitStr)
-                print('shortcode:',shortestCode)
-                print('unitString,remainderuint:',currentUnitStr,remainder[0:unitNum])
-                currentUnitStr = remainder[0:unitNum]
-                remainder = remainder[unitNum:]
-                print('remainder:',remainder)
-                print('unitString,remainder:',currentUnitStr,remainder)
-                count = 1
-        shortestCode.extend(remainder)
-        print('shortcode:',shortestCode)
-    if len(shortestCode)!=0 and len(shortestCode)<answer:
-        answer = len(shortestCode)
+                if len(remainder) <= unitNum:
+                    code, count = writeCode(count, unitString, code)
+                    # print('code:',code)
+                    code.extend(remainder)
+                    break
+                else:
+                    code, count = writeCode(count, unitString, code)
+                    # print('code:',code)
+                    unitString = remainder[0:unitNum]
+                    remainder = remainder[unitNum:]
+        if (len(code) != 0) and (len(code) < answer):
+            answer = len(code)
+            shortestCode = code
+    print('shortestCode:',shortestCode)
     return answer
+
 
 if __name__ == '__main__':
     TEST_CASES = ["aabbaccc", "ababcdcdababcdcd", "abcabcdede",
     "abcabcabcabcdededededede", "xababcdcdababcdcd"]
-    print('string:',TEST_CASES[0])
-    print('solution:',solution(TEST_CASES[0]))
-    # for TEST_CASE in TEST_CASES[0]:
-    #     print(TEST_CASE)
-    #     print(solution(TEST_CASE))
+    for TEST_CASE in TEST_CASES:
+        print(TEST_CASE)
+        print(solution(TEST_CASE))
