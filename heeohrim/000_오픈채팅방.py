@@ -24,4 +24,5 @@ if __name__ == '__main__':
     TEST_CASE = ["Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234",
     "Enter uid1234 Prodo","Change uid4567 Ryan"]
     print(TEST_CASE)
-    print(solution(TEST_CASE))
+    for ans in solution(TEST_CASE):
+        print(ans)
