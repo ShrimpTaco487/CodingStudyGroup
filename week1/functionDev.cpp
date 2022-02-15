@@ -16,7 +16,7 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
         }
         dayComplete.push_back(day-1);
     }
-    int max = dayComplete[0];   // first element ( same as dayComplete.front() )
+    int max = dayComplete[0];   // first element
     int sum = 0;    // sum of completed functions
     for(int j=1; j<dayComplete.size(); j++){
         if (dayComplete[j]>max){
