@@ -4,7 +4,7 @@ def solution(N, number):
         return 1
     for i, x in enumerate(s, start=1):
         x.add(int(str(N) * i))
-
+    breakpoint()
     for i in range(1, len(s)):
         for j in range(i):
             for op1 in s[j]:
@@ -21,5 +21,8 @@ def solution(N, number):
             answer = i + 1
             break
     else:
-        answer = -1
+            answer = -1
     return answer
+N=5
+number = 12
+print(solution(N, number))
